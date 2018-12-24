@@ -32,6 +32,7 @@ class NewViewController: UIViewController{
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var ocrText: UITextView!
+    @IBOutlet weak var translatedText: UITextView!
     
     var scanWidth: CGFloat = 0.0
     var scanHeight: CGFloat = 0
@@ -45,6 +46,7 @@ class NewViewController: UIViewController{
     
     var textRecognizer: VisionTextRecognizer!
     var scanText = ""
+    var finalText = ""
     var doScan = false
     var lastElement = false
     var queueCount = 0
@@ -113,6 +115,7 @@ class NewViewController: UIViewController{
         self.view.bringSubviewToFront(scanArea)
         self.view.bringSubviewToFront(scanButton)
         self.view.bringSubviewToFront(ocrText)
+        self.view.bringSubviewToFront(translatedText)
         view.layer.addSublayer(overlayLayer2)
         
         visionService.delegate = self
@@ -261,7 +264,7 @@ extension NewViewController: BoxServiceDelegate {
         
         //print("box service delegate did detect image")
         //print("Count: \(self.queueCount)")
-        if self.doScan && queueCount == 0{
+        if self.doScan  {
            //print("scan")
            //self.imagesStackView.removeArrangedSubview()
             
@@ -336,7 +339,7 @@ extension NewViewController{
 extension NewViewController{
     func firebaseOCR(image: UIImage, lastElement: Bool){
         
-        print("DOSCAN: \(lastElement)")
+        print("OCR LAST ELEMENT: \(lastElement)")
         //count Queues
         self.queueCount += 1
         
@@ -347,11 +350,9 @@ extension NewViewController{
         scanArea.backgroundColor = UIColor.red
         
         if lastElement == true{
-          //  print("doscan false")
+            print("MAKE DOSCAn FALSE !!!")
              self.doScan = false
              self.lastElement = true
-        }else{
-          //   print("doscan true")
         }
        
         
@@ -377,23 +378,136 @@ extension NewViewController{
             
             print(result.text)
             
-            if lastElement == true {
+            if self.lastElement == true {
                 print("OCR LAST ELEMENT")
+                
+                //sleep(1)
+                //self.lastElement = false
+                //self.doScan = true
+                //self.scanText = ""
                 
                 DispatchQueue.main.async {
                     self.scanArea.backgroundColor = UIColor.green
                     //self.ocrText.text = ""
                 }
                 
-                
-                
-                //sleep(1)
-                self.lastElement = false
-                self.doScan = true
-                self.scanText = ""
+                self.getTranslation(text: self.scanText)
+                 print("START MS FROM OCR")
             }
             
         }
         
     }
 }
+
+
+extension NewViewController{
+    
+    struct TranslatedStrings: Codable {
+        var text: String
+        var to: String
+    }
+    
+    struct LanguageNames: Codable {
+        var name = String()
+        var nativeName = String()
+        var dir = String()
+        var translations = [TranslationsTo]()
+    }
+    
+    struct TranslationsTo: Codable {
+        var name = String()
+        var nativeName = String()
+        var dir = String()
+        var code = String()
+    }
+    
+    func parseJson(jsonData: Data) {
+        
+
+        
+        //*****TRANSLATION RETURNED DATA*****
+        struct ReturnedJson: Codable {
+            var translations: [TranslatedStrings]
+        }
+        struct TranslatedStrings: Codable {
+            var text: String
+            var to: String
+        }
+        
+        let jsonDecoder = JSONDecoder()
+        let langTranslations = try? jsonDecoder.decode(Array<ReturnedJson>.self, from: jsonData)
+        let numberOfTranslations = langTranslations!.count - 1
+        print(langTranslations!.count)
+        print( langTranslations![0].translations[numberOfTranslations].text)
+        //Put response on main thread to update UI
+        DispatchQueue.main.async {
+            self.translatedText.text = langTranslations![0].translations[numberOfTranslations].text
+        }
+    }
+    
+    
+    func getTranslation(text: String){
+        //fromLangCode = self.fromLangPicker.selectedRow(inComponent: 0)
+        //toLangCode = self.toLangPicker.selectedRow(inComponent: 0)
+        
+        //print(toLangCode)
+        
+        //print("this is the selected language code ->", arrayLangInfo[fromLangCode].code)
+        
+        //let selectedFromLangCode = arrayLangInfo[fromLangCode].code
+        //let selectedToLangCode = arrayLangInfo[toLangCode].code
+        print("MS Session 0")
+        struct encodeText: Codable {
+            var text = String()
+        }
+        
+        let azureKey = "d4d22335e8db4e4c9de2e54ab4a6d370"
+        
+        let contentType = "application/json"
+        let traceID = "A14C9DB9-0DED-48D7-8BBE-C517A1A8DBB0"
+        let host = "dev.microsofttranslator.com"
+        let apiURL = "https://dev.microsofttranslator.com/translate?api-version=3.0&from=&to=de"
+        
+        let text2Translate = text
+        var encodeTextSingle = encodeText()
+        var toTranslate = [encodeText]()
+        
+        encodeTextSingle.text = text2Translate
+        toTranslate.append(encodeTextSingle)
+        
+        let jsonToTranslate = try? JSONEncoder().encode(toTranslate)
+        let url = URL(string: apiURL)
+        var request = URLRequest(url: url!)
+        
+        request.httpMethod = "POST"
+        request.addValue(azureKey, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+        request.addValue(contentType, forHTTPHeaderField: "Content-Type")
+        request.addValue(traceID, forHTTPHeaderField: "X-ClientTraceID")
+        request.addValue(host, forHTTPHeaderField: "Host")
+        request.addValue(String(describing: jsonToTranslate?.count), forHTTPHeaderField: "Content-Length")
+        request.httpBody = jsonToTranslate
+        
+        let config = URLSessionConfiguration.default
+        let session =  URLSession(configuration: config)
+        
+        let task = session.dataTask(with: request) { (responseData, response, responseError) in
+            print("MS Session")
+            if responseError != nil {
+                print("this is the error ", responseError!)
+                
+                let alert = UIAlertController(title: "Could not connect to service", message: "Please check your network connection and try again", preferredStyle: .actionSheet)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                
+                self.present(alert, animated: true)
+                
+            }
+            print("*****")
+            self.parseJson(jsonData: responseData!)
+        }
+        task.resume()
+    }
+}
+
+

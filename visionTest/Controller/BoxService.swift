@@ -43,22 +43,26 @@ final class BoxService {
 //        }
         //print("box starting 3")
         //print(results.count)
-        print("############################### - \(results.count)")
+//        print("############################### - \(results.count)")
+//        print(results.endIndex)
+        
+        
+        for (index,result) in results.enumerated(){
 
-        for result in results{
+            //print("index \(index)")
             let normalisedRect = normalise(box: result)
-            print("result")
             
-            if result == results.last {
-               print("Last Elemet ------- \(lastElementResult)")
-               lastElementResult = true
+            if index == results.endIndex-1 {
+                lastElementResult = true
+              // print("Last Element ------- \(lastElementResult)")
+               
             }
             
             if let croppedImage = cropImage(image: image, normalisedRect: normalisedRect) {
                 delegate?.boxService(self, didDetect: croppedImage, lastElement: lastElementResult)
             }
         }
-        print("###############################")
+        //print("###############################")
         
         
     }

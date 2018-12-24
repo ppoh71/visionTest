@@ -9,12 +9,10 @@
 /* Begin PBXBuildFile section */
 		5BD888457AE4EB75C4316597 /* Pods_visionTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44690BD116E2C376A757CCA /* Pods_visionTestUITests.framework */; };
 		A96447CC21D012AC00CA95D0 /* NewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96447CB21D012AC00CA95D0 /* NewViewController.swift */; };
+		A98E5D9721D12D4C004D96A3 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98E5D9621D12D4C004D96A3 /* NetworkService.swift */; };
 		A9A478E521CFF2460018CDEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A478E421CFF2460018CDEB /* GoogleService-Info.plist */; };
 		A9A478E621CFF2460018CDEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A478E421CFF2460018CDEB /* GoogleService-Info.plist */; };
 		A9A478E721CFF2460018CDEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9A478E421CFF2460018CDEB /* GoogleService-Info.plist */; };
-		A9A478ED21CFF39C0018CDEB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A478EC21CFF39C0018CDEB /* MainViewController.swift */; };
-		A9A478EE21CFF39C0018CDEB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A478EC21CFF39C0018CDEB /* MainViewController.swift */; };
-		A9A478EF21CFF39C0018CDEB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A478EC21CFF39C0018CDEB /* MainViewController.swift */; };
 		A9EE319521C306000062B708 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EE319421C306000062B708 /* AppDelegate.swift */; };
 		A9EE319A21C306000062B708 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9EE319821C306000062B708 /* Main.storyboard */; };
 		A9EE319C21C306000062B708 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9EE319B21C306000062B708 /* Assets.xcassets */; };
@@ -52,8 +50,8 @@
 		5F57CD3D311304893C07D63D /* Pods-visionTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-visionTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-visionTest/Pods-visionTest.release.xcconfig"; sourceTree = "<group>"; };
 		8A56386B1EEDCB205B975D44 /* Pods-visionTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-visionTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-visionTest/Pods-visionTest.debug.xcconfig"; sourceTree = "<group>"; };
 		A96447CB21D012AC00CA95D0 /* NewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewController.swift; sourceTree = "<group>"; };
+		A98E5D9621D12D4C004D96A3 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A9A478E421CFF2460018CDEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A9A478EC21CFF39C0018CDEB /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A9EE319121C306000062B708 /* visionTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = visionTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE319421C306000062B708 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9EE319921C306000062B708 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +126,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A98E5D9521D11FCB004D96A3 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				A98E5D9621D12D4C004D96A3 /* NetworkService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 		A9EE318821C306000062B708 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +159,7 @@
 		A9EE319321C306000062B708 /* visionTest */ = {
 			isa = PBXGroup;
 			children = (
+				A98E5D9521D11FCB004D96A3 /* NetworkService */,
 				A9EE31C221C3060B0062B708 /* Controller */,
 				A9EE31C321C306150062B708 /* Assets */,
 				A9EE319421C306000062B708 /* AppDelegate.swift */,
@@ -184,7 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				A96447CB21D012AC00CA95D0 /* NewViewController.swift */,
-				A9A478EC21CFF39C0018CDEB /* MainViewController.swift */,
 				A9EE31C421C306D10062B708 /* CameraController.swift */,
 				A9EE31C621C30E430062B708 /* VisionService.swift */,
 				A9EE31C821C310630062B708 /* Extension.swift */,
@@ -472,8 +478,8 @@
 				A96447CC21D012AC00CA95D0 /* NewViewController.swift in Sources */,
 				A9EE31C521C306D10062B708 /* CameraController.swift in Sources */,
 				A9EE319521C306000062B708 /* AppDelegate.swift in Sources */,
-				A9A478ED21CFF39C0018CDEB /* MainViewController.swift in Sources */,
 				A9EE31C721C30E430062B708 /* VisionService.swift in Sources */,
+				A98E5D9721D12D4C004D96A3 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,7 +487,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A478EE21CFF39C0018CDEB /* MainViewController.swift in Sources */,
 				A9EE31AA21C306000062B708 /* visionTestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,7 +495,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9A478EF21CFF39C0018CDEB /* MainViewController.swift in Sources */,
 				A9EE31B521C306010062B708 /* visionTestUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
