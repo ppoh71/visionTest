@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>259908071229-iqpl9ki8hoqqbas2icpddptopfuegdlh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.259908071229-iqpl9ki8hoqqbas2icpddptopfuegdlh</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBgAJM7X4dROXoDPOVUHBCpawl2z4N3zSw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>259908071229</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>solare.io.visionTest</string>
+	<key>PROJECT_ID</key>
+	<string>ocrtest-1b9c8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ocrtest-1b9c8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:259908071229:ios:2cb8512d905fd29d</string>
+	<key>DATABASE_URL</key>
+	<string>https://ocrtest-1b9c8.firebaseio.com</string>
+</dict>
+</plist>
